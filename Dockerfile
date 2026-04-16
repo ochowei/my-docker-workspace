@@ -2,8 +2,11 @@ FROM node:22-slim
 
 # 基本工具 + zsh + gh CLI
 RUN apt-get update && apt-get install -y \
-      git curl ripgrep fd-find jq zsh \
+      git curl wget ripgrep fd-find jq zsh \
+      openssh-client make vim nano \
       ca-certificates gnupg \
+      python3 python3-pip python3-venv pipx \
+      default-jdk \
     && mkdir -p -m 755 /etc/apt/keyrings \
     && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
        | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
@@ -21,6 +24,14 @@ RUN mkdir -p /home/claude/.config/gh \
 
 USER claude
 WORKDIR /home/claude/workspace
+
+# Rust (rustup 安裝到使用者目錄)
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH=/home/claude/.cargo/bin:$PATH
+
+# Python 套件管理 (uv)
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH=/home/claude/.local/bin:$PATH
 
 # npm 全域路徑設到 user home，避免 root 權限問題
 RUN npm config set prefix '/home/claude/.npm-global' \
