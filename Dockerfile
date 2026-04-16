@@ -25,10 +25,6 @@ RUN mkdir -p /home/claude/.config/gh \
 USER claude
 WORKDIR /home/claude/workspace
 
-# Rust (rustup 安裝到使用者目錄)
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-ENV PATH=/home/claude/.cargo/bin:$PATH
-
 # Python 套件管理 (uv)
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 ENV PATH=/home/claude/.local/bin:$PATH
