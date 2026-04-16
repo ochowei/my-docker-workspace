@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y \
 # 非 root 使用者，shell 設成 zsh
 RUN useradd -m -s /usr/bin/zsh claude
 # 還在 root 身份時先把目錄建好
-RUN mkdir -p /home/claude/.config/gh \
-    && chown -R claude:claude /home/claude/.config
+RUN mkdir -p /home/claude/.config/gh /home/claude/.zsh-history \
+    && chown -R claude:claude /home/claude/.config /home/claude/.zsh-history
 
 USER claude
 WORKDIR /home/claude/workspace
