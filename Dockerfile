@@ -30,4 +30,9 @@ RUN npm install -g @anthropic-ai/claude-code
 # Oh My Zsh（可選，想要漂亮提示字元就留著）
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
+# Statusline: context usage, rate limits, model info
+COPY --chown=claude:claude statusline-command.sh /home/claude/.claude/statusline-command.sh
+COPY --chown=claude:claude claude-settings.json /home/claude/.claude/settings.json
+RUN chmod +x /home/claude/.claude/statusline-command.sh
+
 CMD ["zsh"]
