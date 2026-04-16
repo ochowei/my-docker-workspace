@@ -39,7 +39,8 @@ ENV PATH=/home/claude/.npm-global/bin:$PATH
 RUN npm install -g @anthropic-ai/claude-code
 
 # Oh My Zsh（可選，想要漂亮提示字元就留著）
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended \
+    && echo 'export HISTFILE=/home/claude/.zsh-history/.zsh_history' >> ~/.zshrc
 
 # Statusline: context usage, rate limits, model info
 COPY --chown=claude:claude statusline-command.sh /home/claude/.claude/statusline-command.sh
