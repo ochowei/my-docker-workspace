@@ -70,3 +70,5 @@ docker compose exec workspace zsh
 ```bash
 docker compose down
 ```
+
+> ⚠️ **Do not run `docker compose down -v`.** The `-v` flag removes named volumes, which would wipe your gh login, Claude Code config, and zsh history. Plain `docker compose down` preserves them. To remove a specific volume on purpose, use `docker volume rm <name>` instead.
