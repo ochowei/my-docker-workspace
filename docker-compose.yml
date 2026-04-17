@@ -1,0 +1,28 @@
+services:
+  workspace:
+    image: my-docker-workspace
+    build: .
+    stdin_open: true
+    tty: true
+    environment:
+      GIT_AUTHOR_NAME: ${GIT_AUTHOR_NAME}
+      GIT_AUTHOR_EMAIL: ${GIT_AUTHOR_EMAIL}
+      GIT_COMMITTER_NAME: ${GIT_COMMITTER_NAME}
+      GIT_COMMITTER_EMAIL: ${GIT_COMMITTER_EMAIL}
+    volumes:
+      - .:/home/claude/workspace
+      - claude-gh-config:/home/claude/.config/gh
+      - claude-code-config:/home/claude/.claude
+      - claude-zsh-history:/home/claude/.zsh-history
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  claude-gh-config:
+    name: claude-gh-config
+  claude-code-config:
+    name: claude-code-config
+  claude-zsh-history:
+    name: claude-zsh-history
